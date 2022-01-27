@@ -3,6 +3,7 @@ pipeline {
     environment {
         ECR_REGISTRY = "075897120159.dkr.ecr.us-east-1.amazonaws.com"
         APP_REPO_NAME= "clarusway/to-do-app"
+	PATH="/usr/local/bin/:${env.PATH}"
     }
     stages {
         stage("Run app on Docker"){
@@ -17,7 +18,7 @@ pipeline {
                     sh 'npm install'
                 }   
             }
-        }
+        }      
         stage('Build Docker Image') {
             steps {
                 sh 'docker build --force-rm -t "$ECR_REGISTRY/$APP_REPO_NAME:latest" .'
